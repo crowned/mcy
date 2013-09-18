@@ -122,9 +122,9 @@
 			
 			//write limiting factor
 			if (mu > stoppieGs)
-				var limitingFactor = "Cg (the bike stoppies)";
+				var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie before using all available traction.";
 			else
-				var limitingFactor = "Traction (the bike can use all available traction)";
+				var limitingFactor = "Limiting-factor: Grip.  The bike will skid before it stoppies.";
 			if (xPos == 0)
 				var limitingFactor = "The center of gravity is directly over the contact patch (unrealistic).  It is impossible to brake at all without doing an uncontrollable stoppie.";
 			if (yPos == 0)
@@ -142,7 +142,7 @@
 			// $('#grade').text(grade + " %");
 			$('#stopping-distance-actual').text(actualStop);
 			$('#stopping-distance-theoretical').text(theoreticalStop);
-			$('#limiting-factor').text(limitingFactor);
+			$('#limiting-factor').html(limitingFactor);
 			
 			//update graph
 			$("#stopping-bar-actual").css({width: actualStop});
@@ -168,39 +168,8 @@
 	</script>
 </head>
 <body>
+<h2>Is your stop limited by grip or center of gravity?</h3>
 
-	<div>
-	  <label for="xPos">X-pos: </label>
-	  <span id="xPos"></span>
-	  <br>
-	  
-	  <label for="yPos">Y-pos: </label>
-	  <span id="yPos"></span>
-	  <br>
-	  
-	  <label for="initialSpeed">Initial Speed: </label>
-	  <span id="initialSpeed"></span>
-	  <br>
-	  
-	  <label for="finalSpeed">Final Speed: </label>
-	  <span id="finalSpeed"></span>
-	  <br>
-	  
-	  <label for="grip">Grip (mu): </label>
-	  <span id="grip"></span>
-	  <br>
-	  
-	  <label for="grade">Grade: </label>
-	  <span id="grade"></span>
-	  <br>
-	  
-	  <label for="stopping-distance-actual">Actual stopping distance: </label>
-	  <span id="stopping-distance-actual">far</span>
-	  <br>
-	  
-	  <label for="stopping-distance-theoretical">Theoretical stopping distance: </label>
-	  <span id="stopping-distance-theoretical">short</span>
-	  <br> 
 
 <ul id="test">
 	<li>
@@ -216,7 +185,7 @@
 			<br>
 			<span id="yPos-value"></span>
 		</div>
-		<div id="cg-line">HELLO!
+		<div id="cg-line">
 			<div id="cg-line-filler"></div>
 			<span id="cg-line-text">Cg-limited above this line (stoppie)<br>Traction-limited below this line (skid)</span>
 		</div>
@@ -252,5 +221,38 @@
 
 	<div id="stopping-bar-theoretical" style="height: 10px; width: 100px; background-color:blue;"></div>
 </div>
+
+<label for="xPos">X-pos: </label>
+<span id="xPos"></span>
+<br>
+
+<label for="yPos">Y-pos: </label>
+<span id="yPos"></span>
+<br>
+
+<label for="initialSpeed">Initial Speed: </label>
+<span id="initialSpeed"></span>
+<br>
+
+<label for="finalSpeed">Final Speed: </label>
+<span id="finalSpeed"></span>
+<br>
+
+<label for="grip">Grip (mu): </label>
+<span id="grip"></span>
+<br>
+
+<label for="grade">Grade: </label>
+<span id="grade"></span>
+<br>
+
+<label for="stopping-distance-actual">Actual stopping distance: </label>
+<span id="stopping-distance-actual">far</span>
+<br>
+
+<label for="stopping-distance-theoretical">Theoretical stopping distance: </label>
+<span id="stopping-distance-theoretical">short</span>
+<br>
+
 </body>
 </html>
