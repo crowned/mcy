@@ -63,7 +63,7 @@
 		$( "#draggable" ).draggable({ 
 			containment: "#containment-wrapper", scroll: false, 
 			start: function() {
-
+				
 						},
 			drag: function() {
 
@@ -120,12 +120,17 @@
 			//calculate actual braking distance
 			var actualStop = Math.pow(initialSpeed, 2)/(2*gravity*(maxBraking));
 			
-			//if initial speed
-			
+			//write limiting factor
 			if (mu > stoppieGs)
 				var limitingFactor = "Cg (the bike stoppies)";
 			else
 				var limitingFactor = "Traction (the bike can use all available traction)";
+			if (xPos == 0)
+				var limitingFactor = "The center of gravity is directly over the contact patch (unrealistic).  It is impossible to brake at all without doing an uncontrollable stoppie.";
+			if (yPos == 0)
+				var limitingFactor = "The center of gravity is directly behind the contact patch (unrealistic).  No matter how much grip the bike has, it cannot raise the rear wheel."
+			if ((yPos == 0) && (xPos == 0))
+				var limitingFactor = "The center of gravity is at the contact patch (unrealistic).  The bike could brake hard without doing a stoppie.";
 			
 			
 			//update notes
@@ -164,7 +169,7 @@
 </head>
 <body>
 
-	<div style="display:none;">
+	<div>
 	  <label for="xPos">X-pos: </label>
 	  <span id="xPos"></span>
 	  <br>
@@ -195,18 +200,14 @@
 	  
 	  <label for="stopping-distance-theoretical">Theoretical stopping distance: </label>
 	  <span id="stopping-distance-theoretical">short</span>
-	  <br>
-	  
-	  <label for="limiting-factor">Limiting Factor: </label>
-	  <span id="limiting-factor"></span>
-	</div>
+	  <br> 
 
-	<div id="notes"></div>
-	</ul>
-<ul >
+<ul id="test">
 	<li>
 	<div id="scene">
-		<div id="motorcyclist" style="position:absolute;"></div>
+		<div id="limiting-factor"></div>
+		<div id="motorcyclist">	
+		</div>
 		<div id="containment-wrapper">
 			<div id="draggable" class="draggable"></div>	
 		</div>
@@ -215,22 +216,21 @@
 			<br>
 			<span id="yPos-value"></span>
 		</div>
-		<div id="cg-line">
+		<div id="cg-line">HELLO!
 			<div id="cg-line-filler"></div>
 			<span id="cg-line-text">Cg-limited above this line (stoppie)<br>Traction-limited below this line (skid)</span>
 		</div>
 	</div>
 	</li>
-	<li>
-		<div id="sliders" >
-
-	<p>
+	<li class="slider">
+		<p>
   		<label for="speed-slider-value">Braking:</label>
   		<input type="text" id="speed-slider-value" style="border: 0; color: #f6931f; font-weight: bold;" />
 	</p>
  
 	<div id="speed-slider" style="height: 200px;"></div>
-	
+	</li>
+	<li class="slider">
 	<p>
 	  <label for="grip-slider-value">Grip (mu):</label>
 	  <input type="text" id="grip-slider-value" style="border: 0; color: #f6931f; font-weight: bold;" />
@@ -245,10 +245,8 @@
 
 	<div id="grade-slider" style="float: left; height: 200px;"></div> -->
 	
-	</div>
 	</li>
 </ul>
-	<div style="position:relative; top:500px;">
 
 	<div id="stopping-bar-actual" style="height: 10px; width: 100px; background-color:red; z-index: 1;"></div>
 

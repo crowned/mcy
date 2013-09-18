@@ -11,9 +11,23 @@
 	#draggable { cursor: n-resize; }
 
 /*Scene and sliders*/
-	li{
-		display: inline;
-		
+	ul#test{
+		width:960px;
+		padding:0px;
+		border:1px red solid;
+
+	}
+	ul#test li{
+		text-align:center;
+		display: inline-block;
+		border:1px solid red;
+		vertical-align:top;
+	}
+	#grip-slider-value, #speed-slider-value{
+		width:70px;
+	}
+	#grip-slider, #speed-slider{
+		margin-left:20%;
 	}
 
 /*Scene*/
@@ -21,15 +35,23 @@
 		height:480px;
 		border:2px solid #ccc;
 		padding:0px;
-/*		background-image: url("../images/honda.jpg"); */
-/*		position:relative;*/
-/*		float:left;*/
+/*		background-image: url("../images/honda.jpg");*/
+		position:relative;
 		overflow:hidden}
+	#limiting-factor{
+		color:white;
+		position: absolute;
+		top:10px;
+		left:10px;
+		border:1px solid red;
+		width:100px;
+		text-align:left;
+	}
 	
 	#motorcyclist{
 		width: 640px; 
 		height:480px;
-		background-image: url("../images/honda.jpg"); 
+/*		background-image: url("../images/honda.jpg"); */
 		
 	}
 		
@@ -37,15 +59,13 @@
 		width: 354px;
 		height:422px;
 		position:absolute;
-		left: 141px;
-		top: 46px;
+		left: 155px;
+		top: 169px;
 		z-index: 1;
+		border:1px red solid;
 		}
 		
-/*Sliders		*/
-	#sliders{
 
-	}
 	
 /*Center of Gravity Line*/
 	#cg-line{
@@ -56,6 +76,7 @@
 		position: relative;
 		top: 426px;
 		left: 188px;
+		z-index:1;
 	}
 	#cg-line-filler{
 
@@ -69,7 +90,7 @@
 		line-height:2.2em;
 		font-size:1.1em;
 		top:-28px;
-		left: 70px;
+		left: -170px;
 		
 		-webkit-user-select: none; /* Chrome/Safari */        
 		-moz-user-select: none; /* Firefox */
