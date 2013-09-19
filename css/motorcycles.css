@@ -19,33 +19,43 @@
 	ul#test{
 		width:960px;
 		padding:0px;
-		border:1px red solid;
 		position:relative;
 
 	}
 	ul#test li{
 		display: inline-block;
-		border:1px solid red;
+		border:1px solid gray;
 		vertical-align:top;
 	}
 	#grip-slider-value, #speed-slider-value{
+		border: 0; color: #f6931f; font-weight: bold;
 		width:70px;
 	}
 	#grip-slider, #speed-slider{
 		margin-left:20%;
 	}
 
+/*graph*/
+
 	li#graph{
 		position: absolute;
+		overflow: hidden;
 		top: 250px;
 		left: 650px;
 		width: 308px;	
 	}
 	
 	.stopping-bar{
-
-		font-size:4em;
+		height: 50px;
+		font-size:3em;
+		padding-top:10px;
+	}
+	#stopping-bar-actual{
+		background-color:#F60018;
+	}
 		
+	#stopping-bar-theoretical{
+		background-color:#00A383;
 	}
 
 /*Scene*/

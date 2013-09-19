@@ -15,9 +15,7 @@
 
 	<script>
 	
-	$(function() {
-		//set variables
-
+	$(function() {		
 		$( "#speed-slider" ).slider({
 			orientation: "vertical",
 		    range: "min",
@@ -55,17 +53,15 @@
 				var p = $("p:first");
 				var xPosValue = $("#xPos-value");
 				var yPosValue = $("#yPos-value");
-//				var coordinates = $("#coordinates"); remove?
 				var wheelbase = 55.5;
-				var pixelwheelbase = 334;
-				pixelheight = 402;
+				var pixelwheelbase = $('#containment-wrapper').width()-$('.draggable').width();
+				pixelheight = $('#containment-wrapper').height()-$('.draggable').height();
 				var position = $(this).position();
 				var xPos = wheelbase*(pixelwheelbase-position.left)/(pixelwheelbase);
 				var yPos = (pixelheight-position.top)/pixelheight*wheelbase*pixelheight/pixelwheelbase;
 				var position = p.position();
 				xPosValue.text(xPos);
 				yPosValue.text(yPos);
-				// coordinates.text(xPos + ", " + yPos); remove?
 				updateBrakingValues();
 				
 			},
@@ -86,12 +82,10 @@
 			
 			var xPos = parseFloat($("#xPos-value").text(), 10);
 			var yPos = parseFloat($("#yPos-value").text(), 10);
-			// var xPos = 31;
-			// var yPos = 32.7;
 			var initialSpeed = $( "#speed-slider" ).slider( "values", 1 ) * 88/60;
 			var finalSpeed = $( "#speed-slider" ).slider( "values", 0 ) * 88/60;
 			var mu = $( "#grip-slider" ).slider( "values", 0 );
-			// var grade =$( "#grade-slider" ).slider( "values", 0 ) ;
+
 
 			//calculate theoretical braking distance (using all traction)
 			var theoreticalStop = Math.pow(initialSpeed, 2)/(2*gravity*(mu));
@@ -126,13 +120,13 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 			$('#finalSpeed').text(finalSpeed + " fps");
 			$('#grip').text(mu);
 			// $('#grade').text(grade + " %");
-			$('#stopping-distance-actual').text(actualStop.toFixed(1));
-			$('#stopping-distance-theoretical').text(theoreticalStop.toFixed(1));
+			$('#stopping-distance-actual').text(actualStop.toFixed(1)+ "\'");
+			$('#stopping-distance-theoretical').text(theoreticalStop.toFixed(1)+"\'");
 			$('#limiting-factor').html(limitingFactor);
 			
 			//update graph
-			$("#stopping-bar-actual").css({width: actualStop});
-			$("#stopping-bar-theoretical").css({width: theoreticalStop});
+			$("#stopping-bar-actual").css({width: actualStop/3});
+			$("#stopping-bar-theoretical").css({width: theoreticalStop/3});
 			
 			//rotate critical Cg line:
 			    var $elies = $("#cg-line");
@@ -154,7 +148,11 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 	</script>
 </head>
 <body>
-<h2>Is your stop limited by grip or center of gravity?</h3>
+<h2>Is your stop limited by grip or center of gravity?</h2>
+Instructions:  Reposition the bike's center of gravity symbol (between his leg and the tank) and move the sliders.
+
+
+
 
 <ul id="test">
 	<li>
@@ -165,7 +163,7 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 		<div id="containment-wrapper">
 			<div id="draggable" class="draggable"></div>	
 		</div>
-		<div id="coordinates" style="background-color: white; margin:5px; padding: 4px; width: 100px; height: 15px;">
+		<div id="coordinates" style="background-color: white; margin:5px; padding: 4px; width: 100px; height: 15px; z-index:10;">
 			<span id="xPos-value"></span>
 			<br>
 			<span id="yPos-value"></span>
@@ -179,7 +177,7 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 	<li class="slider">
 		<p>
   		<label for="speed-slider-value">Braking:</label>
-  		<input type="text" id="speed-slider-value" style="border: 0; color: #f6931f; font-weight: bold;" />
+  		<input type="text" id="speed-slider-value" />
 	</p>
  
 	<div id="speed-slider" style="height: 200px;"></div>
@@ -187,25 +185,25 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 	<li class="slider">
 	<p>
 	  <label for="grip-slider-value">Grip (mu):</label>
-	  <input type="text" id="grip-slider-value" style="border: 0; color: #f6931f; font-weight: bold;" />
+	  <input type="text" id="grip-slider-value" />
 	</p>
 
 	<div id="grip-slider" style="height: 200px;"></div>
 	</li>
 	<li id="graph">
 <label for="stopping-distance-actual">Actual stopping distance: </label>
-		<div  class="stopping-bar" id="stopping-bar-actual" style="width: 100px; background-color:red; z-index: 1;">
+		<div  class="stopping-bar" id="stopping-bar-actual">
 		<span id="stopping-distance-actual"></span>
 		</div>
 <label for="stopping-distance-theoretical">Stopping distance will all available grip: </label>
-		<div class="stopping-bar" id="stopping-bar-theoretical" style="height: 10px; width: 100px; background-color:blue;">
-		<span id="stopping-distance-theoretical">short</span>
+		<div class="stopping-bar" id="stopping-bar-theoretical">
+		<span id="stopping-distance-theoretical"></span>
 		</div>
 		<br>
 	</li>
 </ul>
 
-
+<!-- 
 
 <label for="xPos">X-pos: </label>
 <span id="xPos"></span>
@@ -230,7 +228,7 @@ var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie 
 <label for="grade">Grade: </label>
 <span id="grade"></span>
 <br>
-
+ -->
 
 
 </body>
