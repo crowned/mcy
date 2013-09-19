@@ -35,7 +35,7 @@
 		$( "#grip-slider" ).slider({
 			orientation: "vertical",
 		    range: "min",
-			value: 1.12,
+			value: 1.10,
 		    min: 0,
 		    max: 1.6,
 			step: 0.01,
@@ -44,27 +44,12 @@
 				updateBrakingValues();
 		      }});
 		
-		$( "#grip-slider-value" ).val($( "#grip-slider" ).slider( "value" ) );
-		
-		// $( "#grade-slider" ).slider({
-		// 	orientation: "vertical",
-		// 	range: "min",
-		// 	min: -20,
-		// 	max: 20,
-		// 	step: 1,
-		// 	slide: function( event, ui ) {
-		// 		$( "#grade-slider-value" ).val( ui.value);
-		// 		updateBrakingValues();
-		// 	}
-		// });
-		//     $( "#grade-slider-value" ).val( $( "#grade-slider" ).slider( "value" ) );
-        
+		$( "#grip-slider-value" ).val($( "#grip-slider" ).slider( "value" ) );        
 		
 		$( "#draggable" ).draggable({ 
 			containment: "#containment-wrapper", scroll: false, 
 			start: function() {
-				
-						},
+				},
 			drag: function() {
 
 				var p = $("p:first");
@@ -121,10 +106,11 @@
 			var actualStop = Math.pow(initialSpeed, 2)/(2*gravity*(maxBraking));
 			
 			//write limiting factor
-			if (mu > stoppieGs)
-				var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie before using all available traction.";
+			if (mu < stoppieGs)
+							var limitingFactor = "Limiting-factor: Grip.  The bike will skid before it stoppies.";
+				
 			else
-				var limitingFactor = "Limiting-factor: Grip.  The bike will skid before it stoppies.";
+var limitingFactor = "Limiting-factor: Center of gravity. The bike will stoppie before using all available traction.";
 			if (xPos == 0)
 				var limitingFactor = "The center of gravity is directly over the contact patch (unrealistic).  It is impossible to brake at all without doing an uncontrollable stoppie.";
 			if (yPos == 0)
@@ -140,8 +126,8 @@
 			$('#finalSpeed').text(finalSpeed + " fps");
 			$('#grip').text(mu);
 			// $('#grade').text(grade + " %");
-			$('#stopping-distance-actual').text(actualStop);
-			$('#stopping-distance-theoretical').text(theoreticalStop);
+			$('#stopping-distance-actual').text(actualStop.toFixed(1));
+			$('#stopping-distance-theoretical').text(theoreticalStop.toFixed(1));
 			$('#limiting-factor').html(limitingFactor);
 			
 			//update graph
@@ -169,7 +155,6 @@
 </head>
 <body>
 <h2>Is your stop limited by grip or center of gravity?</h3>
-
 
 <ul id="test">
 	<li>
@@ -206,21 +191,21 @@
 	</p>
 
 	<div id="grip-slider" style="height: 200px;"></div>
-	
-	<!-- <p>
-	  <label for="grade-slider-value">Grade (%, positive is uphill.):</label>
-	  <input type="text" id="grade-slider-value" style="border: 0; color: #f6931f; font-weight: bold;" />
-	</p>
-
-	<div id="grade-slider" style="float: left; height: 200px;"></div> -->
-	
+	</li>
+	<li id="graph">
+<label for="stopping-distance-actual">Actual stopping distance: </label>
+		<div  class="stopping-bar" id="stopping-bar-actual" style="width: 100px; background-color:red; z-index: 1;">
+		<span id="stopping-distance-actual"></span>
+		</div>
+<label for="stopping-distance-theoretical">Stopping distance will all available grip: </label>
+		<div class="stopping-bar" id="stopping-bar-theoretical" style="height: 10px; width: 100px; background-color:blue;">
+		<span id="stopping-distance-theoretical">short</span>
+		</div>
+		<br>
 	</li>
 </ul>
 
-	<div id="stopping-bar-actual" style="height: 10px; width: 100px; background-color:red; z-index: 1;"></div>
 
-	<div id="stopping-bar-theoretical" style="height: 10px; width: 100px; background-color:blue;"></div>
-</div>
 
 <label for="xPos">X-pos: </label>
 <span id="xPos"></span>
@@ -246,13 +231,7 @@
 <span id="grade"></span>
 <br>
 
-<label for="stopping-distance-actual">Actual stopping distance: </label>
-<span id="stopping-distance-actual">far</span>
-<br>
 
-<label for="stopping-distance-theoretical">Theoretical stopping distance: </label>
-<span id="stopping-distance-theoretical">short</span>
-<br>
 
 </body>
 </html>
